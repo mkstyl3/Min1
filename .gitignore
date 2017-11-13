@@ -1,0 +1,15 @@
+# Created by .ignore support plugin (hsz.mobi)
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Mac
+.DS_Store
+
+# Maven
+log/
+target/
+
+#log4j
+*.log
