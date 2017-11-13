@@ -1,29 +1,23 @@
 package edu.upc.dsa.Model;
 
 
-import javax.ws.rs.Produces;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
 
     //Variable declaration
-
-    private int id;
     private List<Product> products;
     private int userId;
-    private boolean done;
+    private boolean served;
 
-    public boolean isDone() {
-        return done;
-    }
+
 
     //Constructors
 
-    public Order(int userId, int id, boolean done, List<Product> products) {
-        this.id = id;
+    public Order(int userId, boolean served, List<Product> products) {
         this.userId = userId;
-        this.done = done;
+        this.served = served;
         this.products = products;
     }
 
@@ -39,14 +33,6 @@ public class Order {
 
     public void setUserId(int userId) {
         this.userId = userId;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public List<Product> getProducts() {
@@ -65,12 +51,12 @@ public class Order {
         this.products.add(product);
     }
 
-    public boolean getDone() {
-        return done;
+    public boolean isServed() {
+        return served;
     }
 
-    public void setDone(boolean done) {
-        this.done = done;
+    public void setServed(boolean served) {
+        this.served = served;
     }
 
 

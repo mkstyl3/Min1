@@ -1,14 +1,12 @@
 package edu.upc.dsa.Model;
 
 public class Coffee extends Product {
-    final private String name = "Coffee";
 
-    public Coffee(int id, int cost) {
-        super(id, cost);
-    }
+    //Variable declaration
 
-    @Override
-    public String getName() {
-        return this.name;
+    private int cost;
+
+    public Coffee() {
+        this.cost = 1;
     }
 }

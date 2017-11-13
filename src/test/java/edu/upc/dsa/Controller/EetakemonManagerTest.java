@@ -8,7 +8,6 @@ import org.apache.log4j.Logger;
 import org.junit.*;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static edu.upc.dsa.Controller.ProductManagerImpl.*;
 
@@ -17,7 +16,7 @@ import static edu.upc.dsa.Controller.ProductManagerImpl.*;
  */
 public class EetakemonManagerTest
 {
-    // Variable initialization
+    /*// Variable initialization
 
     private final static Logger logger = Logger.getLogger(EetakemonManagerTest.class);
 
@@ -72,15 +71,15 @@ public class EetakemonManagerTest
     public void setOrderTest(){
         logger.info("Starting setOrderTest...");
         Order newOrder = new Order(usr1.getId(), 1, false, products);
-        Assert.assertTrue(getInstance().setOrder(usr1.getId(),newOrder));
+        Assert.assertTrue(getInstance().serveOrder(usr1.getId(),newOrder));
     }
 
     @Test
     public void serveOrderTest() {
         logger.info("Starting serveOrderTest()...");
 
-        getInstance().serveOrder(1);
-        Assert.assertEquals(1, getInstance().getAllDoneOrders(1));
+        getInstance().makeOrder(1);
+        Assert.assertEquals(1, getInstance().getAllServedOrders(1));
         logger.info("Ending serveOrderTest()...");
-    }
+    }*/
 }

@@ -7,15 +7,16 @@ import edu.upc.dsa.Model.User;
 import javax.inject.Singleton;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.ArrayList;
 import java.util.List;
 
 import static edu.upc.dsa.Controller.ProductManagerImpl.*;
 
-@Path("/user")
+@Path("/products")
 @Singleton //We need it to say jersey to use an unique instance
 public class ProductManagerService {
 
-    //Testing purposes "/user"
+    //Testing purposes "/products"
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String getIt() {
@@ -23,44 +24,43 @@ public class ProductManagerService {
     }
 
     @POST
-    @Path("/set")
+    @Path("/{id}/makeOrder")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Boolean createUserService(User u) {
-        return getInstance().set(u);
+    public Boolean makeOrderService(@PathParam("id") int userId, ArrayList<Product> products) {
+        return getInstance().makeOrder(userId, products);
     }
 
     @GET
-    @Path("/{id}/products/all")
+    @Path("/served/getAll")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Product> getAllProductsService(@PathParam("id") int userId) {
-        return getInstance().getAllProducts(userId);
+    public List<Product> getAllServedProducts() {
+        return getInstance().getAllServedProductsSortedByCost();
     }
 
     @GET
-    @Path("/{id}/products/allProductsSortedByCost")
+    @Path("/served/getAllSortedByCost")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Product> getAllProductsSortedByCostService(@PathParam("id") int userId) {
-        return getInstance().getAllProductsSortedByCost(userId);
+    public List<Product> getAllProductsSortedByCostService() {
+        return getInstance().getAllServedProductsSortedByCost();
     }
 
     @GET
-    @Path("/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public User getService(@PathParam("id") int id) {
-        return getInstance().get(id);
+    @Path("/order/serve")
+    public boolean serveOrder()  {
+        return getInstance().serveOrder();
     }
 
     @GET
-    @Path("/{id}/orders/allOrders")
+    @Path("/{id}/AllServedOrders")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Order> getItemsService(@PathParam("id") int userId){
-        return getInstance().getOrders(userId);
+    public List<Order> getAllServedUserOrders(@PathParam("id") int userId){
+        return getInstance().getAllServedUserOrders(userId);
     }
 
-    @POST
-    @Path("/{id}/orders/setOrder")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public boolean setItemService(@PathParam("id") int userId, Order o){
-        return getInstance().setOrder(userId,o);
+    @GET
+    @Path("/served/AllSortedByNoSales")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Product> setItemService(){
+        return getInstance().getAllProductsSortedByNoSales();
     }
 }

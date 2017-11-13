@@ -4,26 +4,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User {
+
     //Private atributes
 
     private int id;
     private String username;
-    private List<Order> orders;
+    private Order order;
 
     //Constructors
 
     public User () {
-        this.orders = new ArrayList<>();
+        this.order = new Order();
     }
 
     public User(int id, String username) {
         this.id = id;
         this.username = username;
-        this.orders = new ArrayList<>();
+        this.order = new Order();
 
     }
 
     //Getters and Sertters
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 
     public int getId() {
         return id;
@@ -41,24 +50,4 @@ public class User {
         this.username = username;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
-
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    //Getters and Setters from "orders" (It's a list)
-
-    public void setOrder (Order order) {
-        this.orders.add(order);
-    }
-
-    public Order getOrder (int id) {
-        for (Order o: this.orders) {
-            if (o.getId() == id) return o;
-        }
-        return null;
-    }
 }

@@ -8,13 +8,9 @@ import java.util.List;
 
 public interface ProductManager {
 
-    List<Product> getAllProductsSortedByCost(int userId);
-    public Boolean serveOrder(int userId);
-    boolean set(User u);
-    User get(int id);
-    List<Order> getOrders(int userId);
-    boolean setOrder(int userId, Order o);
-    List<Product> getAllProducts(int userId);
-    List<Order> getAllDoneOrders (int userId);
-    List<Product> getAllProductsOrderesByNoSales(int userId);
+    boolean makeOrder (int userId, List<Product> products);
+    boolean serveOrder();
+    List<Product> getAllServedProductsSortedByCost();
+    List<Order> getAllServedUserOrders(int userId);
+    List<Product> getAllProductsSortedByNoSales();
 }

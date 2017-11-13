@@ -2,14 +2,10 @@ package edu.upc.dsa.Model;
 
 public class Sandwich extends Product {
 
-    final private String name = "Sandwich";
+    //Variable declaration
+    private int cost;
 
-    public Sandwich(int id, int cost) {
-        super(id, cost);
-    }
-
-    @Override
-    public String getName() {
-        return this.name;
+    public Sandwich() {
+        this.cost = 3;
     }
 }
