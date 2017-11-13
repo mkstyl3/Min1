@@ -8,33 +8,19 @@ public class User {
 
     private int id;
     private String username;
-    private String password;
-    private int atk;
-    private int def;
-    private int vit;
-    private List<Item> items;
+    private List<Order> orders;
 
     //Constructors
 
     public User () {
-        this.items = new ArrayList<>();
-    }
-
-    public User(int id, String username, String password, int atk, int def, int vit) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.atk = atk;
-        this.def = def;
-        this.vit = vit;
-        this.items = new ArrayList<>();
-
+        this.orders = new ArrayList<>();
     }
 
     public User(int id, String username) {
         this.id = id;
         this.username = username;
-        this.items = new ArrayList<>();
+        this.orders = new ArrayList<>();
+
     }
 
     //Getters and Sertters
@@ -55,55 +41,23 @@ public class User {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public List<Order> getOrders() {
+        return orders;
     }
 
-    public int getAtk() {
-        return atk;
+    //Getters and Setters from "orders" (It's a list)
+
+    public void setOrder (Order order) {
+        this.orders.add(order);
     }
 
-    public void setAtk(int atk) {
-        this.atk = atk;
-    }
-
-    public int getDef() {
-        return def;
-    }
-
-    public void setDef(int def) {
-        this.def = def;
-    }
-
-    public int getVit() {
-        return vit;
-    }
-
-    public void setVit(int vit) {
-        this.vit = vit;
-    }
-
-    public void setItems(List<Item> items) {
-        this.items = items;
-    }
-
-    public List<Item> getItems() {
-        return items;
-    }
-
-    //Getters and Setters from "items" (It's a list)
-
-    public void setItem (Item item) {
-        this.items.add(item);
-    }
-
-    public Item getItem (int id) {
-        for (Item i: this.items) {
-            if (i.getId() == id) return i;
+    public Order getOrder (int id) {
+        for (Order o: this.orders) {
+            if (o.getId() == id) return o;
         }
         return null;
     }
