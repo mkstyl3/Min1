@@ -1,16 +1,5 @@
 package edu.upc.dsa.Controller;
 
-import edu.upc.dsa.Model.Coffee;
-import edu.upc.dsa.Model.Product;
-import edu.upc.dsa.Model.Order;
-import edu.upc.dsa.Model.User;
-import org.apache.log4j.Logger;
-import org.junit.*;
-
-import java.util.ArrayList;
-
-import static edu.upc.dsa.Controller.ProductManagerImpl.*;
-
 /**
  * Unit test for simple App.
  */

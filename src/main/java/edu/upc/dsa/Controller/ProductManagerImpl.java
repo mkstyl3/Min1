@@ -3,6 +3,7 @@ package edu.upc.dsa.Controller;
 import edu.upc.dsa.Model.*;
 import org.apache.log4j.Logger;
 
+import javax.ws.rs.Produces;
 import java.util.*;
 
 public class ProductManagerImpl implements ProductManager {
@@ -28,10 +29,53 @@ public class ProductManagerImpl implements ProductManager {
         this.servedOrders = new ArrayList<>();
     }
 
+    //Public functions
 
-    //Getters and Setters
+    public List<Product> getAllServedProductsSortedByCost() {
+        logger.info("getAllProducts: Retreiving All user products ordered by cost...");
+        return sortProductsByCost(getAllServedProducts());
+    }
 
+    public boolean makeOrder (int userId, List<Product> products) {
+        logger.info("serveOrder: Making an order...");
+        this.orders.add(new Order(userId, false, products));
 
+        logger.info("serveOrder: Order sent");
+        return true;
+    }
+
+    public boolean serveOrder() {
+        logger.info("serveOrder: Serving an order..");
+
+        if(!orders.isEmpty()) {
+            this.servedOrders.add(this.orders.element());
+            this.orders.remove();
+
+            logger.info("serveOrder: An order has been served");
+            return true;
+        }
+        else {
+            logger.warn("serveOrder: No orders to serve");
+            return false;
+        }
+    }
+
+    public List<Order> getAllServedUserOrders(int userId) {
+        logger.info("getAllProducts: Getting all products from:");
+        List<Order> temp = new ArrayList<>();
+
+        for(Order o : this.servedOrders) {
+            if (o.getUserId() == userId)
+                temp.add(o);
+        }
+        //logger.info("getAllProducts: All products from: "+u.getUsername()+" retreived");
+
+        return temp;
+    }
+
+    public List<Product> getAllProductsSortedByNoSales() {
+        return sortProductsByNoSales(getAllServedProducts());
+    }
 
     //Private functions
 
@@ -45,11 +89,11 @@ public class ProductManagerImpl implements ProductManager {
         int noSandwiches = 0;
         List<Product> temp = new ArrayList<>();
         for (Product p : products) {
-            switch(p.getClass().getSimpleName()) {
-                case "Coffee":
+            switch(p.getId()) {
+                case 1:
                     noCoffee++;
                     break;
-                case "Sandwich":
+                case 2:
                     noSandwiches++;
                     break;
             }
@@ -57,27 +101,27 @@ public class ProductManagerImpl implements ProductManager {
         int result = Integer.compare(noCoffee, noSandwiches);
         if (result == 0) {
             for (Product p : products) {
-                if (!temp.contains(p))
+                if (!(temp.contains(p)))
                     temp.add(p);
             }
         }
         if (result < 0) {
             for (Product p : products) {
-                if(!temp.contains(p) && p.getClass().getSimpleName().equals("Coffee"))
+                if(!(temp.contains(p)) && p.getId() ==1)
                     temp.add(p);
             }
             for (Product p : products) {
-                if(!temp.contains(p) && p.getClass().getSimpleName().equals("Sandwich"))
+                if(!(temp.contains(p)) && p.getId() ==1)
                     temp.add(p);
             }
         }
         if (result > 0) {
             for (Product p : products) {
-                if(!temp.contains(p) && p.getClass().getSimpleName().equals("Sandwich"))
+                if(!(temp.contains(p)) && p.getId() ==2)
                     temp.add(p);
             }
             for (Product p : products) {
-                if(!temp.contains(p) && p.getClass().getSimpleName().equals("Coffee"))
+                if(!(temp.contains(p)) && p.getId() ==2)
                     temp.add(p);
             }
         }
@@ -97,13 +141,7 @@ public class ProductManagerImpl implements ProductManager {
         return temp;
     }
 
-
-
-    //Public functions
-
-    //General functions
-
-    public Boolean initializeUsers() {
+    /*public Boolean initializeUsers() {
 
         User usr1 = new User(1, "Marc");
 
@@ -142,41 +180,5 @@ public class ProductManagerImpl implements ProductManager {
         usr2.setOrder(new Order(usr2.getId(),false, products2));
 
         return true;
-    }
-
-    //Order specific functions
-
-    public boolean makeOrder (int userId, List<Product> products) {
-        this.orders.add(new Order(userId, false, products));
-
-        return true;
-    }
-
-    public boolean serveOrder() {
-        this.servedOrders.add(this.orders.element());
-        this.orders.remove();
-        return true;
-    }
-
-    public List<Order> getAllServedUserOrders(int userId) {
-        logger.info("getAllProducts: Getting all products from:");
-        List<Order> temp = new ArrayList<>();
-
-        for(Order o : this.servedOrders) {
-            if (o.getUserId() == userId)
-                temp.add(o);
-        }
-        //logger.info("getAllProducts: All products from: "+u.getUsername()+" retreived");
-
-        return temp;
-    }
-
-    public List<Product> getAllServedProductsSortedByCost() {
-        logger.info("getAllProducts: Retreiving All user products ordered by cost...");
-        return sortProductsByCost(getAllServedProducts());
-    }
-
-    public List<Product> getAllProductsSortedByNoSales() {
-        return sortProductsByNoSales(getAllServedProducts());
-    }
+    }*/
 }
