@@ -29,6 +29,16 @@ public class ProductManagerImpl implements ProductManager {
         this.servedOrders = new ArrayList<>();
     }
 
+    //Getters and Setters
+
+    public Queue<Order> getOrders() {
+        return orders;
+    }
+
+    public List<Order> getServedOrders() {
+        return servedOrders;
+    }
+
     //Public functions
 
     public List<Product> getAllServedProductsSortedByCost() {
@@ -61,20 +71,32 @@ public class ProductManagerImpl implements ProductManager {
     }
 
     public List<Order> getAllServedUserOrders(int userId) {
-        logger.info("getAllProducts: Getting all products from:");
         List<Order> temp = new ArrayList<>();
-
-        for(Order o : this.servedOrders) {
-            if (o.getUserId() == userId)
-                temp.add(o);
+        if (isUserOnQueue(userId)) {
+            logger.info("getAllServedUserOrders: Getting all ordered products from userId: "+userId);
+            for(Order o : this.servedOrders) {
+                if (o.getUserId() == userId)
+                    temp.add(o);
+            }
+            logger.info("getAllServedUserOrders: Historic from userId: "+userId+" retreived");
+            return temp;
         }
-        //logger.info("getAllProducts: All products from: "+u.getUsername()+" retreived");
-
-        return temp;
+        else {
+            logger.warn("getAllServedUserOrders: There is no historic from id: "+userId);
+            return temp;
+        }
     }
 
     public List<Product> getAllProductsSortedByNoSales() {
-        return sortProductsByNoSales(getAllServedProducts());
+        if (!servedOrders.isEmpty()) {
+            logger.info("sortProductsByNoSales: Sorting all products by no. sales, if no null It's okay");
+            return sortProductsByNoSales(getAllServedProducts());
+        }
+        else {
+            logger.warn("sortProductsByNoSales: There are no products yet");
+            return null;
+        }
+
     }
 
     //Private functions
@@ -82,6 +104,14 @@ public class ProductManagerImpl implements ProductManager {
     private List<Product> sortProductsByCost(List<Product> products) {
         products.sort(Comparator.comparing(Product::getCost));
         return products;
+    }
+
+    private boolean isUserOnQueue (int userId) {
+        for(Order o : servedOrders) {
+            if(o.getUserId() == userId)
+                return true;
+        }
+        return false;
     }
 
     private List<Product> sortProductsByNoSales(List<Product> products) {
@@ -107,7 +137,7 @@ public class ProductManagerImpl implements ProductManager {
         }
         if (result < 0) {
             for (Product p : products) {
-                if(!(temp.contains(p)) && p.getId() ==1)
+                if(!(temp.contains(p)) && p.getId() ==2)
                     temp.add(p);
             }
             for (Product p : products) {
@@ -117,7 +147,7 @@ public class ProductManagerImpl implements ProductManager {
         }
         if (result > 0) {
             for (Product p : products) {
-                if(!(temp.contains(p)) && p.getId() ==2)
+                if(!(temp.contains(p)) && p.getId() ==1)
                     temp.add(p);
             }
             for (Product p : products) {
@@ -125,60 +155,23 @@ public class ProductManagerImpl implements ProductManager {
                     temp.add(p);
             }
         }
-
         return temp;
     }
 
     private List<Product> getAllServedProducts() {
-        logger.info("getAllProducts: Getting all products from:");
         List<Product> temp = new ArrayList<>();
-
-        for(Order o : this.servedOrders) {
-            temp.addAll(o.getProducts());
+        if (!servedOrders.isEmpty()) {
+            logger.info("getAllProducts: Getting all products from:");
+            for(Order o : this.servedOrders) {
+                temp.addAll(o.getProducts());
+            }
+            logger.info("getAllProducts: All products retreived");
+            return temp;
         }
-        //logger.info("getAllProducts: All products from: "+u.getUsername()+" retreived");
+        else {
+            logger.info("getAllProducts: There are no products that have been ordered yet");
+            return temp;
+        }
 
-        return temp;
     }
-
-    /*public Boolean initializeUsers() {
-
-        User usr1 = new User(1, "Marc");
-
-        Product item1 = new Coffee();
-        Product item2 = new Coffee();
-        Product item3 = new Sandwich();
-        Product item4 = new Sandwich();
-        Product item5 = new Coffee();
-
-        List<Product> products = new ArrayList<>();
-
-        products.add(item1);
-        products.add(item2);
-        products.add(item3);
-        products.add(item4);
-        products.add(item5);
-
-        usr1.setOrder(new Order(usr1.getId(),false, products));
-
-        User usr2 = new User(2, "Gerard");
-
-        Product item6 = new Coffee();
-        Product item7 = new Coffee();
-        Product item8 = new Sandwich();
-        Product item9 = new Sandwich();
-        Product item10 = new Coffee();
-
-        List<Product> products2 = new ArrayList<>();
-
-        products2.add(item1);
-        products2.add(item4);
-        products2.add(item7);
-        products2.add(item8);
-        products2.add(item9);
-
-        usr2.setOrder(new Order(usr2.getId(),false, products2));
-
-        return true;
-    }*/
 }
