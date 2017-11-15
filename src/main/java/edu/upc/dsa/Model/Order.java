@@ -9,15 +9,12 @@ public class Order {
     //Variable declaration
     private List<Product> products;
     private int userId;
-    private boolean served;
-
 
 
     //Constructors
 
     public Order(int userId, boolean served, List<Product> products) {
         this.userId = userId;
-        this.served = served;
         this.products = products;
     }
 
@@ -49,14 +46,6 @@ public class Order {
 
     public void setProduct(Product product) {
         this.products.add(product);
-    }
-
-    public boolean isServed() {
-        return served;
-    }
-
-    public void setServed(boolean served) {
-        this.served = served;
     }
 
 

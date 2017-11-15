@@ -4,9 +4,9 @@ public class Product {
 
     //Variable declaration
 
-    private int id; //All Apples has same id, All Sandwiches has the same id, All Coffee the same
-    private String name; //All Apples has same name, All Sandwiches has the name id, All Coffee the same
-    private int cost; //All Apples has same cost, All Sandwiches has the same cost, All Coffee the same
+    private int id;
+    private String name;
+    private int cost;
 
 
     //Constructors

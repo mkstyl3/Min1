@@ -6,6 +6,10 @@ import org.apache.log4j.Logger;
 import javax.ws.rs.Produces;
 import java.util.*;
 
+/**
+*  The project it's scalable but for now only works with 2 products (easy impl).
+*
+ * */
 public class ProductManagerImpl implements ProductManager {
 
     //Variable declarations
