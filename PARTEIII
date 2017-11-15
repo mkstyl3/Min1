@@ -1,0 +1,3 @@
+Una forma de implementación sería tener dos tablas, una para users y otra para products, 
+cuyas claves primárias fueran las claves foráneas de una tercera tabla Orders que las 
+relacionara entre sí.
