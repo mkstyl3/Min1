@@ -2,6 +2,7 @@ package edu.upc.dsa.Controller;
 
 import edu.upc.dsa.Model.Order;
 import edu.upc.dsa.Model.Product;
+import edu.upc.dsa.Model.User;
 
 import javax.inject.Singleton;
 import javax.ws.rs.*;
@@ -53,5 +54,13 @@ public class ProductManagerService {
     @Produces(MediaType.APPLICATION_JSON)
     public List<Product> getAllSortedBySalesService(){
         return getInstance().getAllProductsSortedByNoSales();
+    }
+
+    @POST
+    @Path("/userLogin")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public User loginService(User u) {
+        return getInstance().login(u);
     }
 }

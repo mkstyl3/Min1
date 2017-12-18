@@ -178,4 +178,8 @@ public class ProductManagerImpl implements ProductManager {
         }
 
     }
+
+    public User login(User u) {
+        return u;
+    }
 }

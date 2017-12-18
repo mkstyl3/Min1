@@ -13,4 +13,5 @@ public interface ProductManager {
     List<Product> getAllServedProductsSortedByCost();
     List<Order> getAllServedUserOrders(int userId);
     List<Product> getAllProductsSortedByNoSales();
+    User login(User u);
 }
